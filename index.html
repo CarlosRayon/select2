@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select 2</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/select2/dist/css/select2.min.css">
+</head>
+
+<body>
+
+    <div class="container py-5 bg-light">
+        <div class="row mb-3">
+            <div class="col">
+                <h1 class="text-center">Example select2</h1>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <h2>Simple</h2>
+                <select class="js-example-basic-single" name="location-simple" style="width: 50%">
+                    <option value="CO">comillas</option>
+                    <option value="TO">Torrelavega</option>
+                    <option value="SAN">Santander</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <h2>Multiple</h2>
+                <select class="js-example-basic-multiple" name="location-multiple[]" multiple="multiple"
+                    style="width: 50%">
+                    <option value="CO">comillas</option>
+                    <option value="TO">Torrelavega</option>
+                    <option value="SAN">Santander</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <h2>Ajax</h2>
+                <select class="js-data-example-ajax" multiple="multiple" style="width: 50%"></select>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script src="node_modules/select2/dist/js/select2.full.min.js"></script>
+<script>
+    $(document).ready(function () {
+
+        /* Simple */
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2();
+        });
+
+        /* Multiple */
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
+
+        /* Ajax */
+        $('.js-data-example-ajax').select2({
+            placeholder: 'Select or Add',
+            width: 'resolve',// Need to override the changed default
+            theme: 'classic', // bootstrap4
+            ajax: {
+                type: "POST",
+                url: 'backEnd.php',
+                dataType: 'json',
+                /* Custom send params */
+                data: function (params) {
+                    return {
+                        search: params.term,
+                        type: params._type,
+                        other: 'other param'
+                    };
+                }
+            }
+        });
+
+    });
+</script>
+
+
+
+</html>
